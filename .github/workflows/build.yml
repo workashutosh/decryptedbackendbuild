@@ -10,24 +10,19 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Setup MSBuild
-        uses: microsoft/setup-msbuild@v1.3.1
+        uses: microsoft/setup-msbuild@v2
 
       - name: Restore NuGet packages
-        run: nuget restore YourSolution.sln
+        run: nuget restore YourProject.sln
 
       - name: Build with MSBuild
-        run: msbuild YourSolution.sln /p:Configuration=Release
-
-      - name: Find and publish .exe or .dll
-        run: |
-          mkdir output
-          Get-ChildItem -Recurse -Include *.exe,*.dll | Where-Object { $_.FullName -like "*\bin\Release\*" } | Copy-Item -Destination output
+        run: msbuild YourProject.sln /p:Configuration=Release
 
       - name: Upload build artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
-          name: build-output
-          path: output
+          name: build-artifacts
+          path: '**/bin/Release/'
