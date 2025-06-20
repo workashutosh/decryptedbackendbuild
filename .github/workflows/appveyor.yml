@@ -1,0 +1,10 @@
+version: 1.0.{build}
+image: Visual Studio 2022
+
+build:
+  project: NewDBTR.sln   # Replace with actual .sln filename
+  verbosity: minimal
+
+artifacts:
+  - path: '**\bin\Release\**\*.dll'
+    name: build-dll
