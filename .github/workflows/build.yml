@@ -19,7 +19,7 @@ jobs:
         run: nuget restore YourProject.sln
 
       - name: Build with MSBuild
-        run: msbuild YourProject.sln /p:Configuration=Release
+        run: msbuild DabbaTrading.sln /p:Configuration=Release
 
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
