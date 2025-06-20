@@ -1,13 +1,26 @@
-version: 1.0.{build}
-image: Visual Studio 2022
-
-before_build:
-  - nuget restore DabbaTrading.sln
-
-build:
-  project: DabbaTrading.sln
-  verbosity: minimal
-
-artifacts:
-  - path: '**\bin\Release\**\*.dll'
-    name: build-dll
+name: Build DabbaTrading
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    - name: Setup NuGet
+      uses: nuget/setup-nuget@v2
+      with:
+        nuget-version: '5.x'
+    - name: Restore NuGet packages
+      run: nuget restore DabbaTrading.sln -Verbosity detailed
+      working-directory: .
+    - name: Setup MSBuild
+      uses: microsoft/setup-msbuild@v2
+    - name: Build solution
+      run: msbuild DabbaTrading.sln /p:Configuration=Release /p:Platform="Any CPU"
+      working-directory: .
