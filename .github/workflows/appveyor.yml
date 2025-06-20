@@ -2,7 +2,7 @@ version: 1.0.{build}
 image: Visual Studio 2022
 
 build:
-  project: NewDBTR.sln   # Replace with actual .sln filename
+  project: DBTrading.sln   # ← Replace with your actual solution filename
   verbosity: minimal
 
 artifacts:
